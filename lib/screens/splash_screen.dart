@@ -11,7 +11,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  final Duration _duration = Duration(seconds: 55);
+  final Duration _duration = Duration(seconds: 5);
   Size _deviceSize;
 
   @override

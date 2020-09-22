@@ -1,23 +1,27 @@
 import 'dart:ui';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_gb/bloc/bottom_navbar_bloc.dart';
+import 'package:teste_gb/bloc/home_bloc.dart';
 import 'package:teste_gb/screens/news_screen.dart';
 import 'package:teste_gb/style/theme.dart' as Style;
 
-class MainScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   BottomNavBarBloc _bottomNavBarBloc;
+  HomeBloc _homeBloc;
 
   @override
   void initState() {
     super.initState();
     _bottomNavBarBloc = BottomNavBarBloc();
+    _homeBloc = HomeBloc();
   }
 
   @override
@@ -26,7 +30,18 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.0),
-        child: AppBar(
+        child: AppBar(actions: [
+          Padding( padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: (){
+                _homeBloc.logoutUser();
+              },
+              child: Icon(
+                EvaIcons.logOutOutline
+              ),
+            ),
+          )
+        ],
           backgroundColor: Style.Colors.mainColor,
           title: Text(
             'boticapp',

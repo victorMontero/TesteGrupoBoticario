@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teste_gb/bloc/authorization_bloc.dart';
 import 'package:teste_gb/bloc/login_bloc.dart';
 import 'package:teste_gb/screens/login_screen.dart';
-import 'package:teste_gb/screens/main_screen.dart';
+import 'package:teste_gb/screens/home_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -24,7 +24,7 @@ class _AuthScreenState extends State<AuthScreen> {
       stream: authBloc.isSessionValid,
       builder: (context, AsyncSnapshot<bool> snapshot){
         if (snapshot.hasData && snapshot.data){
-          return MainScreen();
+          return HomeScreen();
         }
         return LoginScreen();
       },

@@ -14,6 +14,7 @@ class Validators {
         sink.addError("Enter a valid email");
       }
   );
+
   final validatePassword = StreamTransformer<String, String>.fromHandlers(
       handleData: (String password, EventSink<String> sink) {
         if (password.length > 7) {

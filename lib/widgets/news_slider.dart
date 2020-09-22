@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:teste_gb/bloc/news_bloc.dart';
 import 'package:teste_gb/elements/error_element.dart';
 import 'package:teste_gb/elements/loader_element.dart';
@@ -15,6 +16,7 @@ class NewsSliderWidget extends StatefulWidget {
 }
 
 class _NewsSliderWidgetState extends State<NewsSliderWidget> {
+
   @override
   void initState() {
     super.initState();
@@ -23,6 +25,7 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return StreamBuilder<NewsResponse>(
       stream: newsBloc.subject.stream,
       builder: (context, AsyncSnapshot<NewsResponse> snapshot) {
