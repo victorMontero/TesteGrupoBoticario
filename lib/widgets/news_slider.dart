@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:teste_gb/bloc/news_bloc.dart';
 import 'package:teste_gb/elements/error_element.dart';
 import 'package:teste_gb/elements/loader_element.dart';
@@ -46,11 +47,81 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
       child: CarouselSlider(
           options: CarouselOptions(
             enlargeCenterPage: false,
-            height: 200.0,
+            height: 500.0,
             viewportFraction: 0.9,
           ),
           items: getExpandedSlider(articles)),
     );
+  }
+
+  getExpandedSlider(List<News> articles) {
+    return articles.map((article) => GestureDetector(
+      onTap: () {},
+      child: Container(
+        padding: const EdgeInsets.only(
+            left: 5.0, right: 5.0, top: 10.0, bottom: 10.0),
+        child: Stack(
+          children: <Widget>[
+            Container(
+                foregroundDecoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  shape: BoxShape.rectangle,
+                ),),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    stops: [
+                      0.1,
+                      0.7
+                    ],
+                    colors: [
+                      Colors.black.withOpacity(0.8),
+                      Colors.white.withOpacity(0.0)
+                    ]),
+              ),
+            ),
+
+            Positioned(
+                top: 20.0,
+                child: Container(
+                  padding: EdgeInsets.only(left: 16.0, right: 8.0),
+                  width: 225.0,
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        article.message.content,
+                        style: TextStyle(
+                            height: 1.25,
+                            color: Colors.black45,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20.0),
+                      ),
+                    ],
+                  ),
+                )),
+            Positioned(
+                bottom: 10.0,
+                left: 10.0,
+                child: Text(
+                  article.user.name,
+                  style: TextStyle(color: Colors.white54, fontSize: 16.0),
+                )),
+            Positioned(
+                bottom: 10.0,
+                right: 10.0,
+                child: Text(
+                  timeUntil(DateTime.parse(article.message.createdAt)),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white54, fontSize: 8.0),
+                )),
+          ],
+        ),
+      ),
+    ),)
+        .toList();
   }
 
   Widget _buildErrorWidget(String error) {
@@ -63,78 +134,6 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
         ));
   }
 
-  getExpandedSlider(List<News> articles) {
-    return articles.map((article) => GestureDetector(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.only(
-                left: 5.0, right: 5.0, top: 10.0, bottom: 10.0),
-            child: Stack(
-              children: <Widget>[
-                Container(
-                    decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  shape: BoxShape.rectangle,
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: article.user.profilePicture == null
-                          ? AssetImage("assets/img/placeholder.jpg")
-                          : NetworkImage(article.user.profilePicture)),
-                )),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        stops: [
-                          0.1,
-                          0.9
-                        ],
-                        colors: [
-                          Colors.black.withOpacity(0.9),
-                          Colors.white.withOpacity(0.0)
-                        ]),
-                  ),
-                ),
-                Positioned(
-                    bottom: 30.0,
-                    child: Container(
-                      padding: EdgeInsets.only( right: 10.0),
-                      width: 250.0,
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            article.user.name,
-                            style: TextStyle(
-                                height: 1.5,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12.0),
-                          ),
-                        ],
-                      ),
-                    )),
-                Positioned(
-                    bottom: 10.0,
-                    left: 10.0,
-                    child: Text(
-                      article.message.content,
-                      style: TextStyle(color: Colors.white54, fontSize: 8.0),
-                    )),
-                Positioned(
-                    bottom: 10.0,
-                    right: 10.0,
-                    child: Text(
-                      timeUntil(DateTime.parse(article.message.createdAt)),
-                      style: TextStyle(color: Colors.white54, fontSize: 8.0),
-                    )),
-              ],
-            ),
-          ),
-        ),)
-        .toList();
-  }
 
   String timeUntil(DateTime date) {
     return timeago.format(date, allowFromNow: true, locale: 'en');

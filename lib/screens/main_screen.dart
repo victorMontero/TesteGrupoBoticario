@@ -81,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                   BottomNavigationBarItem(
                     title: Padding(
                         padding: EdgeInsets.only(top: 5.0),
-                        child: Text("Home",
+                        child: Text("feed",
                             style: TextStyle(fontWeight: FontWeight.w600))),
                     icon: Icon(EvaIcons.homeOutline),
                     activeIcon: Icon(EvaIcons.home),
@@ -89,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
                   BottomNavigationBarItem(
                     title: Padding(
                         padding: EdgeInsets.only(top: 5.0),
-                        child: Text("Sources",
+                        child: Text("news",
                             style: TextStyle(fontWeight: FontWeight.w600))),
                     icon: Icon(EvaIcons.gridOutline),
                     activeIcon: Icon(EvaIcons.grid),
