@@ -4,7 +4,7 @@ import 'package:teste_gb/model/message.dart';
 import 'package:teste_gb/model/news.dart';
 import 'package:teste_gb/model/news_response.dart';
 import 'package:teste_gb/model/user.dart';
-import 'package:teste_gb/services/repository.dart';
+import 'file:///P:/personalProjects/teste_gb/lib/services/news/news_repository.dart';
 
 part 'news_event.dart';
 

@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:teste_gb/bloc/news_bloc.dart';
 import 'package:teste_gb/elements/error_element.dart';
 import 'package:teste_gb/elements/loader_element.dart';
@@ -88,14 +87,14 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
             Positioned(
                 top: 20.0,
                 child: Container(
-                  padding: EdgeInsets.only(left: 16.0, right: 8.0),
+                  padding: EdgeInsets.only(left: 24.0, right: 8.0),
                   width: 225.0,
                   child: Column(
                     children: <Widget>[
                       Text(
                         article.message.content,
                         style: TextStyle(
-                            height: 1.25,
+                            height: 1.15,
                             color: Colors.black45,
                             fontWeight: FontWeight.w700,
                             fontSize: 20.0),
@@ -104,18 +103,24 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
                   ),
                 )),
             Positioned(
-                bottom: 10.0,
-                left: 10.0,
+              bottom: 16.0,left: 16.0,
+              child: CircleAvatar(
+                backgroundImage: NetworkImage("https://res-4.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco/x5mjatz3g75hsnhfuck2"),
+              ),
+            ),
+            Positioned(
+                bottom: 32.0,
+                left: 64.0,
                 child: Text(
                   article.user.name,
                   style: TextStyle(color: Colors.white54, fontSize: 16.0),
                 )),
             Positioned(
-                bottom: 10.0,
-                right: 10.0,
+                bottom: 20.0,
+                left: 66.0,
                 child: Text(
                   timeUntil(DateTime.parse(article.message.createdAt)),
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white54, fontSize: 8.0),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white54, fontSize: 9.0),
                 )),
           ],
         ),

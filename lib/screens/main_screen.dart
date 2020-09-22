@@ -82,7 +82,8 @@ class _MainScreenState extends State<MainScreen> {
                     title: Padding(
                         padding: EdgeInsets.only(top: 5.0),
                         child: Text("feed",
-                            style: TextStyle(fontWeight: FontWeight.w600))),
+                            style: TextStyle(fontSize: 12.0,
+                                fontWeight: FontWeight.w600))),
                     icon: Icon(EvaIcons.homeOutline),
                     activeIcon: Icon(EvaIcons.home),
                   ),
@@ -90,9 +91,10 @@ class _MainScreenState extends State<MainScreen> {
                     title: Padding(
                         padding: EdgeInsets.only(top: 5.0),
                         child: Text("news",
-                            style: TextStyle(fontWeight: FontWeight.w600))),
-                    icon: Icon(EvaIcons.gridOutline),
-                    activeIcon: Icon(EvaIcons.grid),
+                            style: TextStyle(fontSize: 12.0,
+                                fontWeight: FontWeight.w600))),
+                    icon: Icon(EvaIcons.globe2),
+                    activeIcon: Icon(EvaIcons.globe2Outline),
                   ),
                 ],
               ),
