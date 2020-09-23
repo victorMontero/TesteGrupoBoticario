@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teste_gb/bloc/login_bloc.dart';
+import 'package:teste_gb/screens/home_screen.dart';
 import 'package:teste_gb/screens/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -87,7 +88,8 @@ Widget submitButton(LoginBloc bloc) => StreamBuilder<bool>(
   stream: bloc.submitValid,
   builder: (context, snap) {
     return RaisedButton(
-      onPressed: (!snap.hasData) ? null : bloc.submit,
+      onPressed: () => Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => HomeScreen()), (Route<dynamic> route) => false),
       child: Text("Login", style: TextStyle(color: Colors.white),),
     color: Colors.blue,
     );

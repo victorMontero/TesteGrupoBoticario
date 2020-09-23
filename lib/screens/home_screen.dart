@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_gb/bloc/bottom_navbar_bloc.dart';
 import 'package:teste_gb/bloc/home_bloc.dart';
+import 'package:teste_gb/screens/login_screen.dart';
 import 'package:teste_gb/screens/news_screen.dart';
 import 'package:teste_gb/style/theme.dart' as Style;
 
@@ -33,9 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: AppBar(actions: [
           Padding( padding: EdgeInsets.only(right: 20.0),
             child: GestureDetector(
-              onTap: (){
-                _homeBloc.logoutUser();
-              },
+              onTap: () => Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()), (Route<dynamic> route) => false),
               child: Icon(
                 EvaIcons.logOutOutline
               ),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teste_gb/screens/auth_screen.dart';
+import 'package:teste_gb/screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -83,6 +84,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void splashDone(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AuthScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }

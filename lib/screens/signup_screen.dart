@@ -10,7 +10,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  SignupBloc bloc = SignupBloc();
+  LoginBloc bloc = LoginBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +22,13 @@ class _SignupScreenState extends State<SignupScreen> {
         margin: EdgeInsets.all(20.0),
         child: Column(
           children: [
-            nameField(bloc),
+            nameField(),
             emailField(bloc),
             passwordField(bloc),
             Container(margin: EdgeInsets.only(top: 25.0)),
             loadingIndicator(bloc),
-            MyRoundedButton(
-              text: 'entrar',
-                textColor: Colors.white,
-                onTap: () => Navigator.pushAndRemoveUntil(context,
-                MaterialPageRoute(builder: (context) => HomeScreen()), (Route<dynamic> route) => false))
+            submitButton(bloc),
+
           ],
         ),
       ),
@@ -39,7 +36,7 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 }
 
-Widget loadingIndicator(SignupBloc bloc) => StreamBuilder<bool>(
+Widget loadingIndicator(LoginBloc bloc) => StreamBuilder<bool>(
   stream: bloc.loading,
   builder: (context, snap) {
     return Container(
@@ -50,7 +47,7 @@ Widget loadingIndicator(SignupBloc bloc) => StreamBuilder<bool>(
   },
 );
 
-Widget emailField(SignupBloc bloc) => StreamBuilder<String>(
+Widget emailField(LoginBloc bloc) => StreamBuilder<String>(
   stream: bloc.email,
   builder: (context, snap) {
     return TextField(
@@ -65,22 +62,18 @@ Widget emailField(SignupBloc bloc) => StreamBuilder<String>(
   },
 );
 
-Widget nameField(SignupBloc bloc) => StreamBuilder<String>(
-  stream: bloc.name,
-  builder: (context, snap) {
+Widget nameField(){
     return TextField(
       keyboardType: TextInputType.name,
-      onChanged: bloc.changeName,
       decoration: InputDecoration(
           labelText: "name",
           hintText: "jose",
-          errorText: snap.error
       ),
     );
-  },
-);
+  }
 
-Widget passwordField(SignupBloc bloc) => StreamBuilder<String>(
+
+Widget passwordField(LoginBloc bloc) => StreamBuilder<String>(
     stream: bloc.password,
     builder:(context, snap) {
       return TextField(
@@ -93,4 +86,16 @@ Widget passwordField(SignupBloc bloc) => StreamBuilder<String>(
         ),
       );
     }
+);
+
+Widget submitButton(LoginBloc bloc) => StreamBuilder<bool>(
+  stream: bloc.submitValid,
+  builder: (context, snap) {
+    return RaisedButton(
+      onPressed: () => Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context) => HomeScreen()), (Route<dynamic> route) => false),
+      child: Text("Login", style: TextStyle(color: Colors.white),),
+      color: Colors.blue,
+    );
+  },
 );
