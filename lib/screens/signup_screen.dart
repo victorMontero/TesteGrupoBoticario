@@ -1,39 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:teste_gb/bloc/login_bloc.dart';
-import 'package:teste_gb/screens/signup_screen.dart';
+import 'package:teste_gb/bloc/signup_bloc.dart';
+import 'package:teste_gb/components/rounded_button.dart';
+import 'package:teste_gb/screens/home_screen.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignupScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-
-  LoginBloc bloc = LoginBloc();
+class _SignupScreenState extends State<SignupScreen> {
+  SignupBloc bloc = SignupBloc();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("login"),
+        title: Text("signup"),
       ),
       body: Container(
         margin: EdgeInsets.all(20.0),
         child: Column(
           children: [
+            nameField(bloc),
             emailField(bloc),
             passwordField(bloc),
             Container(margin: EdgeInsets.only(top: 25.0)),
-            submitButton(bloc),
             loadingIndicator(bloc),
-            Container(
-              margin: EdgeInsets.only(top: 16),
-              child: GestureDetector(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen())),
-                child: Text("registre-se", style: GoogleFonts.roboto(color: Colors.black87, fontSize: 16),),
-              ),
-            )
+            MyRoundedButton(
+              text: 'entrar',
+                textColor: Colors.white,
+                onTap: () => Navigator.pushAndRemoveUntil(context,
+                MaterialPageRoute(builder: (context) => HomeScreen()), (Route<dynamic> route) => false))
           ],
         ),
       ),
@@ -41,8 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-
-Widget loadingIndicator(LoginBloc bloc) => StreamBuilder<bool>(
+Widget loadingIndicator(SignupBloc bloc) => StreamBuilder<bool>(
   stream: bloc.loading,
   builder: (context, snap) {
     return Container(
@@ -53,7 +50,7 @@ Widget loadingIndicator(LoginBloc bloc) => StreamBuilder<bool>(
   },
 );
 
-Widget emailField(LoginBloc bloc) => StreamBuilder<String>(
+Widget emailField(SignupBloc bloc) => StreamBuilder<String>(
   stream: bloc.email,
   builder: (context, snap) {
     return TextField(
@@ -68,7 +65,22 @@ Widget emailField(LoginBloc bloc) => StreamBuilder<String>(
   },
 );
 
-Widget passwordField(LoginBloc bloc) => StreamBuilder<String>(
+Widget nameField(SignupBloc bloc) => StreamBuilder<String>(
+  stream: bloc.name,
+  builder: (context, snap) {
+    return TextField(
+      keyboardType: TextInputType.name,
+      onChanged: bloc.changeName,
+      decoration: InputDecoration(
+          labelText: "name",
+          hintText: "jose",
+          errorText: snap.error
+      ),
+    );
+  },
+);
+
+Widget passwordField(SignupBloc bloc) => StreamBuilder<String>(
     stream: bloc.password,
     builder:(context, snap) {
       return TextField(
@@ -81,15 +93,4 @@ Widget passwordField(LoginBloc bloc) => StreamBuilder<String>(
         ),
       );
     }
-);
-
-Widget submitButton(LoginBloc bloc) => StreamBuilder<bool>(
-  stream: bloc.submitValid,
-  builder: (context, snap) {
-    return RaisedButton(
-      onPressed: (!snap.hasData) ? null : bloc.submit,
-      child: Text("Login", style: TextStyle(color: Colors.white),),
-    color: Colors.blue,
-    );
-  },
 );

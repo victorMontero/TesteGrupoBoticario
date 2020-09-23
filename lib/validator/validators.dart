@@ -24,4 +24,14 @@ class Validators {
         }
       }
   );
+
+  final validateName = StreamTransformer<String, String>.fromHandlers(
+    handleData: (String password, EventSink<String> sink){
+      if (password.length > 0){
+        sink.add(password);
+      } else {
+        sink.addError("este campo não pode ficar vazio");
+      }
+    }
+  );
 }
