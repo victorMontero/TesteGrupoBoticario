@@ -4,9 +4,12 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_gb/bloc/bottom_navbar_bloc.dart';
+import 'package:teste_gb/bloc/feed_bloc.dart';
 import 'package:teste_gb/bloc/home_bloc.dart';
+import 'package:teste_gb/screens/feed_screen.dart';
 import 'package:teste_gb/screens/login_screen.dart';
 import 'package:teste_gb/screens/news_screen.dart';
+import 'package:teste_gb/screens/post_screen.dart';
 import 'package:teste_gb/style/theme.dart' as Style;
 
 class HomeScreen extends StatefulWidget {
@@ -17,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   BottomNavBarBloc _bottomNavBarBloc;
   HomeBloc _homeBloc;
+  FeedBloc _feedBloc;
 
   @override
   void initState() {
@@ -59,11 +63,16 @@ class _HomeScreenState extends State<HomeScreen> {
               case NavBarItem.NEWS:
                 return NewsScreen();
               case NavBarItem.FEED:
-                return testScreen();
+                return FeedScreen();
             }
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return PostForm();
+        }));
+      }),
       bottomNavigationBar: StreamBuilder(
         stream: _bottomNavBarBloc.itemStream,
         initialData: _bottomNavBarBloc.defaultItem,
@@ -120,15 +129,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget testScreen() {
-    return Container(
-      color: Colors.white,
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[Text("Test Screen")],
-      ),
-    );
-  }
+
 }

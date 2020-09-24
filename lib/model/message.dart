@@ -1,7 +1,7 @@
 
 
 class Message {
-  final String content;
+  String content;
   final String createdAt;
 
   Message(

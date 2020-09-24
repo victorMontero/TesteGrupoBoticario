@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:teste_gb/bloc/bloc_provider.dart';
+import 'package:teste_gb/bloc/feed_bloc.dart';
 import 'package:teste_gb/screens/auth_screen.dart';
+import 'package:teste_gb/screens/feed_screen.dart';
 import 'package:teste_gb/screens/splash_screen.dart';
 
 void main() {
@@ -11,13 +14,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return BlocProvider<FeedBloc>(
+      bloc: FeedBloc(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: SplashScreen(),
       ),
-      home: SplashScreen(),
     );
   }
 
