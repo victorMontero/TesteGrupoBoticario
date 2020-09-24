@@ -1,8 +1,9 @@
 class User {
+  int id;
   final String name;
   final String profilePicture;
 
-  User(
+  User(this.id,
     this.name,
     this.profilePicture,
   );

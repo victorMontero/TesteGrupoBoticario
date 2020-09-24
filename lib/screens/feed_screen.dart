@@ -88,6 +88,7 @@ class _FeedScreenState extends State<FeedScreen> {
               ],
             ),
             _buildBottomSection(
+              postData.user.id,
               postData.user.name,
               postData.message.createdAt,
               postData.message.content,
@@ -154,12 +155,12 @@ class _FeedScreenState extends State<FeedScreen> {
     );
   }
 
-  Widget _buildBottomSection(
+  Widget _buildBottomSection(int userId,
       String createdAt, String userName, String content, int index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        index == 0  ?
+        userId == 2  ?
     Expanded(
                 child: Row(
                 children: [

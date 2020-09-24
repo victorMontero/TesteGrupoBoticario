@@ -30,14 +30,14 @@ class FeedBloc implements BlocBase {
   Future<void> generatePosts() async {
     if (feedPostList.isEmpty) {
       feedPostList = [
-        Post(User("one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
-        Post(User("one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
-        Post(User("one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
-        Post(User("one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
-        Post(User("one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
-        Post(User("one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
-        Post(User("one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
-        Post(User("one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
+        Post(User(1,"one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
+        Post(User(1,"one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
+        Post(User(1,"one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
+        Post(User(1,"one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
+        Post(User(1,"one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
+        Post(User(1,"one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
+        Post(User(1,"one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
+        Post(User(1,"one", "assets/img/placeholder.jpg"), Message("hi", "2020-02-22T11:00:33Z")),
       ];
       return Future.delayed(Duration(seconds: 2), () => updateFeedData(PostResponse(feedPostList)));
     } else {
@@ -46,7 +46,7 @@ class FeedBloc implements BlocBase {
   }
 
   void createsPost(){
-    Post newPost = Post(User("victor", "assets/img/placeholder.jpg"), Message(_textInputController.value, "2020-02-22T11:00:33Z"));
+    Post newPost = Post(User(2, "victor", "assets/img/placeholder.jpg"), Message(_textInputController.value, "2020-02-22T11:00:33Z"));
     feedPostList.insert(0, newPost);
     updateFeedData(PostResponse(feedPostList));
     clearValidator();
