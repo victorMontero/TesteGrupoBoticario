@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teste_gb/bloc/bloc_provider.dart';
 import 'package:teste_gb/bloc/feed_bloc.dart';
+import 'package:teste_gb/components/dialog_popup.dart';
 import 'package:teste_gb/components/text_editor_popup.dart';
 import 'package:teste_gb/model/post.dart';
 import 'package:teste_gb/model/post_response.dart';
-import 'package:teste_gb/screens/post_screen.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class FeedScreen extends StatefulWidget {
@@ -15,7 +15,6 @@ class FeedScreen extends StatefulWidget {
 }
 
 class _FeedScreenState extends State<FeedScreen> {
-
   FeedBloc feedBloc;
   Size deviceSize;
   PostResponse feedData;
@@ -32,9 +31,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (deviceSize == null) deviceSize = MediaQuery
-        .of(context)
-        .size;
+    if (deviceSize == null) deviceSize = MediaQuery.of(context).size;
 
     return Scaffold(
       floatingActionButton: _buildButton(),
@@ -73,12 +70,12 @@ class _FeedScreenState extends State<FeedScreen> {
     );
   }
 
-  Widget _buildPostItem(BuildContext context, Post postData, int index){
+  Widget _buildPostItem(BuildContext context, Post postData, int index) {
     return Container(
       color: Colors.grey,
       child: Container(
-          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-          width: deviceSize.width,
+        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+        width: deviceSize.width,
         child: Column(
           children: [
             Row(
@@ -158,75 +155,80 @@ class _FeedScreenState extends State<FeedScreen> {
     );
   }
 
-  Widget _buildBottomSection(String createdAt, String userName, String content, int index) {
-
+  Widget _buildBottomSection(
+      String createdAt, String userName, String content, int index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        userName == myUserName ?
-        Expanded(
-            child: Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(right: 16),
-                  child: GestureDetector(
-                    onTap: () => showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return TextEditorPopup(
-                            cancelButtonCallback: () => Navigator.pop(context),
-                            onDispose: () => feedBloc.clearValidator(),
-                            onTextChange: feedBloc.updateTextInputData,
-                            validatedTextStream: feedBloc.textInputDataStream,
-                            confirmButtonCallback: () => feedBloc.editPost(index),
-                            oldText: content,
-                          );
-                        }),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5.0),
-                      child: Container(
-                          height: 22,
-                          width: 22,
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              border: Border.all(color: Colors.white, width: 0.8),
-                              borderRadius: BorderRadius.circular(5.0)),
-                          child: Icon(
-                            Icons.edit,
-                            size: 16,
-                            color: Colors.white,
-                          )),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 8),
-                  child: GestureDetector(
-                    onTap: () => feedBloc.deletePost(index),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5.0),
-                      child: Container(
-                          height: 22,
-                          width: 22,
-                          decoration: BoxDecoration(
+        userName == myUserName
+            ? Expanded(
+                child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: 16),
+                    child: GestureDetector(
+                      onTap: () => showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return TextEditorPopup(
+                              cancelButtonCallback: () =>
+                                  Navigator.pop(context),
+                              onDispose: () => feedBloc.clearValidator(),
+                              onTextChange: feedBloc.updateTextInputData,
+                              validatedTextStream: feedBloc.textInputDataStream,
+                              confirmButtonCallback: () =>
+                                  feedBloc.editPost(index),
+                              oldText: content,
+                            );
+                          }),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: Container(
+                            height: 22,
+                            width: 22,
+                            decoration: BoxDecoration(
+                                color: Colors.grey,
+                                border:
+                                    Border.all(color: Colors.white, width: 0.8),
+                                borderRadius: BorderRadius.circular(5.0)),
+                            child: Icon(
+                              Icons.edit,
+                              size: 16,
                               color: Colors.white,
-                              border: Border.all(color: Colors.white, width: 0.8),
-                              borderRadius: BorderRadius.circular(5.0)),
-                          child: Icon(
-                            Icons.delete,
-                            size: 16,
-                            color: Colors.white,
-                          )),
+                            )),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ))
+                  Container(
+                    margin: EdgeInsets.only(right: 8),
+                    child: GestureDetector(
+                      onTap: () => feedBloc.deletePost(index),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: Container(
+                            height: 22,
+                            width: 22,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                border:
+                                    Border.all(color: Colors.white, width: 0.8),
+                                borderRadius: BorderRadius.circular(5.0)),
+                            child: Icon(
+                              Icons.delete,
+                              size: 16,
+                              color: Colors.white,
+                            )),
+                      ),
+                    ),
+                  ),
+                ],
+              ))
             : Container(),
         Container(
           margin: EdgeInsets.only(top: 16, bottom: 12),
           alignment: Alignment.bottomRight,
-          child: Text(timeUntil(DateTime.parse("2020-02-22T11:00:33Z")),
+          child: Text(
+            timeUntil(DateTime.parse("2020-02-22T11:00:33Z")),
             style: GoogleFonts.montserrat(fontSize: 9, color: Colors.blueGrey),
           ),
         )
@@ -240,13 +242,22 @@ class _FeedScreenState extends State<FeedScreen> {
 
   Widget _buildButton() {
     return Container(
-      alignment: Alignment.bottomRight,
-      child: FloatingActionButton(onPressed: (){
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return PostForm();
-      }));
-    }),
-    );
+        alignment: Alignment.bottomRight,
+        child: FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () => showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return DialogPopup(
+                      cancelButtonCallback: () {
+                        Navigator.of(context).pop(null);
+                      },
+                      onTextChange: feedBloc.updateTextInputData,
+                      confirmButtonCallback: feedBloc.createsPost,
+                      onDispose: () {
+                        feedBloc.clearValidator();
+                      },
+                      validatedTextStream: feedBloc.textInputDataStream);
+                })));
   }
 }
-
