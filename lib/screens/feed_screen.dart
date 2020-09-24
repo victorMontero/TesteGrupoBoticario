@@ -18,7 +18,6 @@ class _FeedScreenState extends State<FeedScreen> {
   FeedBloc feedBloc;
   Size deviceSize;
   PostResponse feedData;
-  String myUserName = "victor";
 
   @override
   void initState() {
@@ -160,8 +159,8 @@ class _FeedScreenState extends State<FeedScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        userName == myUserName
-            ? Expanded(
+        index == 0  ?
+    Expanded(
                 child: Row(
                 children: [
                   Container(
@@ -232,8 +231,8 @@ class _FeedScreenState extends State<FeedScreen> {
             style: GoogleFonts.montserrat(fontSize: 9, color: Colors.blueGrey),
           ),
         )
-      ],
-    );
+    ]);
+
   }
 
   String timeUntil(DateTime date) {
