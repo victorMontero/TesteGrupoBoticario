@@ -6,6 +6,7 @@ import 'package:teste_gb/bloc/feed_bloc.dart';
 import 'package:teste_gb/components/text_editor_popup.dart';
 import 'package:teste_gb/model/post.dart';
 import 'package:teste_gb/model/post_response.dart';
+import 'package:teste_gb/screens/post_screen.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class FeedScreen extends StatefulWidget {
@@ -35,12 +36,15 @@ class _FeedScreenState extends State<FeedScreen> {
         .of(context)
         .size;
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        _buildPostList()
-      ],
+    return Scaffold(
+      floatingActionButton: _buildButton(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _buildPostList(),
+        ],
+      ),
     );
   }
 
@@ -232,6 +236,17 @@ class _FeedScreenState extends State<FeedScreen> {
 
   String timeUntil(DateTime date) {
     return timeago.format(date, allowFromNow: true, locale: 'en');
+  }
+
+  Widget _buildButton() {
+    return Container(
+      alignment: Alignment.bottomRight,
+      child: FloatingActionButton(onPressed: (){
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return PostForm();
+      }));
+    }),
+    );
   }
 }
 
