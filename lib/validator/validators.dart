@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:teste_gb/util/constants.dart';
+
 
 class Validators {
   final validateEmail = StreamTransformer<String, String>.fromHandlers(
@@ -11,7 +13,7 @@ class Validators {
         if (regex.hasMatch(email))
         sink.add(email);
         else
-        sink.addError("Enter a valid email");
+        sink.addError(Constants.EMAIL_VALIDATOR);
       }
   );
 
@@ -20,17 +22,17 @@ class Validators {
         if (password.length > 7) {
           sink.add(password);
         } else {
-          sink.addError("Password must be at least 8 characters long");
+          sink.addError(Constants.PASS_VALIDATOR);
         }
       }
   );
 
   final validateName = StreamTransformer<String, String>.fromHandlers(
     handleData: (String password, EventSink<String> sink){
-      if (password.length > 0){
+      if (password.isNotEmpty){
         sink.add(password);
       } else {
-        sink.addError("este campo não pode ficar vazio");
+        sink.addError(Constants.NAME_VALIDATOR);
       }
     }
   );

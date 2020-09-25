@@ -8,7 +8,10 @@ import 'package:teste_gb/elements/error_element.dart';
 import 'package:teste_gb/elements/loader_element.dart';
 import 'package:teste_gb/model/news.dart';
 import 'package:teste_gb/model/news_response.dart';
+import 'package:teste_gb/util/constants.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:teste_gb/style/theme.dart' as Style;
+
 
 class NewsSliderWidget extends StatefulWidget {
   @override
@@ -16,6 +19,9 @@ class NewsSliderWidget extends StatefulWidget {
 }
 
 class _NewsSliderWidgetState extends State<NewsSliderWidget> {
+
+  Size deviceSize;
+
 
   @override
   void initState() {
@@ -25,6 +31,7 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (deviceSize == null) deviceSize = MediaQuery.of(context).size;
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return StreamBuilder<NewsResponse>(
       stream: newsBloc.subject.stream,
@@ -49,7 +56,7 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
       child: CarouselSlider(
           options: CarouselOptions(
             enlargeCenterPage: false,
-            height: 500.0,
+            height: deviceSize.height,
             viewportFraction: 0.9,
           ),
           items: getExpandedSlider(articles)),
@@ -96,11 +103,12 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
                     children: <Widget>[
                       Text(
                         article.message.content,
+                        softWrap: true,
                         style: TextStyle(
-                            height: 1.15,
+                            height: 1.2,
                             color: Colors.black45,
                             fontWeight: FontWeight.w700,
-                            fontSize: 20.0),
+                            fontSize: 19.0),
                       ),
                     ],
                   ),

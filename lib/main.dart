@@ -4,6 +4,7 @@ import 'package:teste_gb/bloc/feed_bloc.dart';
 import 'package:teste_gb/screens/auth_screen.dart';
 import 'package:teste_gb/screens/feed_screen.dart';
 import 'package:teste_gb/screens/splash_screen.dart';
+import 'package:teste_gb/util/constants.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider<FeedBloc>(
       bloc: FeedBloc(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: Constants.APP_NAME,
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,

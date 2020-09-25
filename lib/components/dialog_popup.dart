@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_gb/components/rounded_button.dart';
+import 'package:teste_gb/util/constants.dart';
+import 'package:teste_gb/style/theme.dart' as Style;
 
 class DialogPopup extends StatefulWidget {
   final Function cancelButtonCallback;
@@ -70,18 +72,22 @@ class _DialogPopupState extends State<DialogPopup> {
                                     child: SingleChildScrollView(
                                       scrollDirection: Axis.vertical,
                                       reverse: true,
-                                      child: TextField(
-                                          keyboardType: TextInputType.multiline,
-                                          maxLines: 8,
-                                          controller: controller,
-                                          onChanged: (String text) => widget.onTextChange(text),
-                                          decoration: InputDecoration(
-                                              hintMaxLines: 2,
-                                              hintText: "Compartilhe aqui suas ideias...",
-                                              border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(10.0),
-                                                borderSide: BorderSide(color: Colors.green, width: 1),
-                                              ))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 24.0),
+                                        child: TextField(
+                                            keyboardType: TextInputType.multiline,
+                                            maxLength: 280,
+                                            maxLines: null,
+                                            controller: controller,
+                                            onChanged: (String text) => widget.onTextChange(text),
+                                            decoration: InputDecoration(
+                                                hintMaxLines: 2,
+                                                hintText: Constants.POST_HINT,
+                                                border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(10.0),
+                                                  borderSide: BorderSide(color: Colors.green, width: 1),
+                                                ))),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -96,7 +102,7 @@ class _DialogPopupState extends State<DialogPopup> {
                                         backgroundColor: Colors.grey,
                                         textColor: Colors.green,
                                         onTap: widget.cancelButtonCallback,
-                                        text: "Cancelar",
+                                        text: Constants.CANCEL_TEXT,
                                       )),
                                   Container(
                                     width: 12,
@@ -107,14 +113,14 @@ class _DialogPopupState extends State<DialogPopup> {
                                         return Expanded(
                                             child: MyRoundedButton(
                                               backgroundColor:
-                                              snapshot.hasData ? Colors.green : Colors.green.withOpacity(0.3),
+                                              snapshot.hasData ? Style.MyColors.greenColor : Style.MyColors.greenColor.withOpacity(0.3),
                                               onTap: snapshot.hasData
                                                   ? () {
                                                 widget.confirmButtonCallback();
                                                 Navigator.pop(context);
                                               }
                                                   : () {},
-                                              text: "Postar",
+                                              text: Constants.OK_TEXT,
                                             ));
                                       }),
                                 ],

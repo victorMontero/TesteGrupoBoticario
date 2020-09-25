@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:teste_gb/style/theme.dart' as Style;
 
 class MyRoundedButton extends StatelessWidget {
   final Function onTap;
@@ -12,7 +13,7 @@ class MyRoundedButton extends StatelessWidget {
       {@required this.onTap,
       this.text = "",
       this.textColor = Colors.white,
-      this.backgroundColor = Colors.red});
+      this.backgroundColor = Style.MyColors.mainColor});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class MyRoundedButton extends StatelessWidget {
           padding: EdgeInsets.all(15),
           child: AutoSizeText(
             text,
-            style: GoogleFonts.montserrat(
+            style: GoogleFonts.roboto(
                 color: Colors.white, fontWeight: FontWeight.bold),
             maxLines: 1,
             maxFontSize: 18,

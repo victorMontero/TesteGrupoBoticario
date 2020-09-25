@@ -1,13 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teste_gb/bloc/bloc_provider.dart';
 import 'package:teste_gb/bloc/feed_bloc.dart';
 import 'package:teste_gb/components/dialog_popup.dart';
 import 'package:teste_gb/components/text_editor_popup.dart';
+import 'package:teste_gb/elements/loader_element.dart';
 import 'package:teste_gb/model/post.dart';
 import 'package:teste_gb/model/post_response.dart';
+import 'package:teste_gb/util/constants.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:teste_gb/style/theme.dart' as Style;
 
 class FeedScreen extends StatefulWidget {
   @override
@@ -59,42 +64,42 @@ class _FeedScreenState extends State<FeedScreen> {
             ),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-            ),
-          );
+          return buildLoadingWidget();
         }
       },
     );
   }
 
   Widget _buildPostItem(BuildContext context, Post postData, int index) {
-    return Container(
-      color: Colors.grey,
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-        width: deviceSize.width,
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildUserInfo(
-                  postData.user.name,
-                  postData.user.profilePicture,
-                ),
-                _buildContentSection(postData.message.content)
-              ],
-            ),
-            _buildBottomSection(
-              postData.user.id,
-              postData.user.name,
-              postData.message.createdAt,
-              postData.message.content,
-              index,
-            ),
-          ],
+        color: Colors.grey[100],
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+          width: deviceSize.width,
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildUserInfo(
+                    postData.user.name,
+                    postData.user.profilePicture,
+                  ),
+                  _buildContentSection(postData.message.content)
+                ],
+              ),
+              _buildBottomSection(
+                postData.user.id,
+                postData.user.name,
+                postData.message.createdAt,
+                postData.message.content,
+                index,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -103,30 +108,36 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget _buildUserInfo(String userName, String profilePictureUrl) {
     return Container(
       width: 80,
-      margin: EdgeInsets.only(right: 12),
+      margin: EdgeInsets.only(right: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5.0),
-            child: Container(
-              height: 65,
-              width: 65,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 0.8),
-                  borderRadius: BorderRadius.circular(5.0)),
-              child: FittedBox(
-                fit: BoxFit.cover,
-                child: Image.asset(
-                  profilePictureUrl,
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+            child: Text(
+              userName,
+              style: GoogleFonts.roboto(
+                  fontSize: 16,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5.0),
+              child: Container(
+                height: 65,
+                width: 65,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 2),
+                    borderRadius: BorderRadius.circular(100.0)),
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: Icon(EvaIcons.person, color: Colors.grey,),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 5.0),
-          Text(
-            userName,
-            style: GoogleFonts.montserrat(fontSize: 12, color: Colors.white),
           ),
         ],
       ),
@@ -135,105 +146,105 @@ class _FeedScreenState extends State<FeedScreen> {
 
   Widget _buildContentSection(String content) {
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            children: [
-              AutoSizeText(
-                content,
-                textAlign: TextAlign.justify,
-                softWrap: true,
-                maxFontSize: 12,
-                minFontSize: 10,
-                style: GoogleFonts.montserrat(color: Colors.white),
-              )
-            ],
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16.0, right: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              children: [
+                AutoSizeText(
+                  content,
+                  textAlign: TextAlign.start,
+                  softWrap: true,
+                  maxFontSize: 13,
+                  minFontSize: 12,
+                  style: GoogleFonts.roboto(color: Colors.grey),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildBottomSection(int userId,
-      String createdAt, String userName, String content, int index) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        userId == 2  ?
-    Expanded(
-                child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right: 16),
-                    child: GestureDetector(
-                      onTap: () => showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return TextEditorPopup(
-                              cancelButtonCallback: () =>
-                                  Navigator.pop(context),
-                              onDispose: () => feedBloc.clearValidator(),
-                              onTextChange: feedBloc.updateTextInputData,
-                              validatedTextStream: feedBloc.textInputDataStream,
-                              confirmButtonCallback: () =>
-                                  feedBloc.editPost(index),
-                              oldText: content,
-                            );
-                          }),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5.0),
-                        child: Container(
-                            height: 22,
-                            width: 22,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                border:
-                                    Border.all(color: Colors.white, width: 0.8),
-                                borderRadius: BorderRadius.circular(5.0)),
-                            child: Icon(
-                              Icons.edit,
-                              size: 16,
-                              color: Colors.white,
-                            )),
-                      ),
+  Widget _buildBottomSection(int userId, String createdAt, String userName,
+      String content, int index) {
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      userId == 2
+          ? Expanded(
+              child: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 16),
+                  child: GestureDetector(
+                    onTap: () => showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return TextEditorPopup(
+                            cancelButtonCallback: () => Navigator.pop(context),
+                            onDispose: () => feedBloc.clearValidator(),
+                            onTextChange: feedBloc.updateTextInputData,
+                            validatedTextStream: feedBloc.textInputDataStream,
+                            confirmButtonCallback: () =>
+                                feedBloc.editPost(index),
+                            oldText: content,
+                          );
+                        }),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(0.0),
+                      child: Container(
+                          height: 22,
+                          width: 22,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[100],
+                          ),
+                          child: Icon(
+                            EvaIcons.edit,
+                            size: 16,
+                            color: Colors.grey,
+                          )),
                     ),
                   ),
-                  Container(
+                ),
+                Positioned(
+                  right: 120,
+                  child: Container(
                     margin: EdgeInsets.only(right: 8),
                     child: GestureDetector(
                       onTap: () => feedBloc.deletePost(index),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(0.0),
                         child: Container(
                             height: 22,
                             width: 22,
                             decoration: BoxDecoration(
-                                color: Colors.white,
-                                border:
-                                    Border.all(color: Colors.white, width: 0.8),
+                                color: Colors.grey[100],
+                                border: Border.all(
+                                    color: Colors.grey[100], width: 0.8),
                                 borderRadius: BorderRadius.circular(5.0)),
                             child: Icon(
-                              Icons.delete,
+                              EvaIcons.trash2,
                               size: 16,
-                              color: Colors.white,
+                              color: Colors.grey,
                             )),
                       ),
                     ),
                   ),
-                ],
-              ))
-            : Container(),
-        Container(
-          margin: EdgeInsets.only(top: 16, bottom: 12),
-          alignment: Alignment.bottomRight,
-          child: Text(
-            timeUntil(DateTime.parse("2020-02-22T11:00:33Z")),
-            style: GoogleFonts.montserrat(fontSize: 9, color: Colors.blueGrey),
-          ),
-        )
+                ),
+              ],
+            ))
+          : Container(),
+      Container(
+        margin: EdgeInsets.only(top: 8, left: 8),
+        alignment: Alignment.center,
+        child: Text(
+          timeUntil(DateTime.now()),
+          style: GoogleFonts.roboto(fontSize: 10, color: Colors.grey),
+        ),
+      ),
     ]);
-
   }
 
   String timeUntil(DateTime date) {
@@ -243,7 +254,7 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget _buildButton() {
     return Container(
         alignment: Alignment.bottomRight,
-        child: FloatingActionButton(
+        child: FloatingActionButton(backgroundColor: Style.MyColors.greenColor,
             child: Icon(Icons.add),
             onPressed: () => showDialog(
                 context: context,

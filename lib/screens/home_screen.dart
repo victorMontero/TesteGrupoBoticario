@@ -9,8 +9,8 @@ import 'package:teste_gb/bloc/home_bloc.dart';
 import 'package:teste_gb/screens/feed_screen.dart';
 import 'package:teste_gb/screens/login_screen.dart';
 import 'package:teste_gb/screens/news_screen.dart';
-import 'package:teste_gb/screens/post_screen.dart';
 import 'package:teste_gb/style/theme.dart' as Style;
+import 'package:teste_gb/util/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -46,9 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           )
         ],
-          backgroundColor: Style.Colors.mainColor,
+          backgroundColor: Style.MyColors.mainColor,
           title: Text(
-            'boticapp',
+            Constants.APP_NAME,
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -89,18 +89,18 @@ class _HomeScreenState extends State<HomeScreen> {
               child: BottomNavigationBar(
                 backgroundColor: Colors.white,
                 iconSize: 20,
-                unselectedItemColor: Style.Colors.grey,
+                unselectedItemColor: Style.MyColors.grey,
                 unselectedFontSize: 9.5,
                 selectedFontSize: 9.5,
                 type: BottomNavigationBarType.fixed,
-                fixedColor: Colors.amberAccent,
+                fixedColor: Style.MyColors.mainColor,
                 currentIndex: snapshot.data.index,
                 onTap: _bottomNavBarBloc.pickItem,
                 items: [
                   BottomNavigationBarItem(
                     title: Padding(
                         padding: EdgeInsets.only(top: 5.0),
-                        child: Text("feed",
+                        child: Text(Constants.FEED_TEXT,
                             style: TextStyle(fontSize: 12.0,
                                 fontWeight: FontWeight.w600))),
                     icon: Icon(EvaIcons.homeOutline),
@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   BottomNavigationBarItem(
                     title: Padding(
                         padding: EdgeInsets.only(top: 5.0),
-                        child: Text("news",
+                        child: Text(Constants.NEWS_TEXT,
                             style: TextStyle(fontSize: 12.0,
                                 fontWeight: FontWeight.w600))),
                     icon: Icon(EvaIcons.globe2),
