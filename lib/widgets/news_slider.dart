@@ -8,7 +8,6 @@ import 'package:teste_gb/elements/error_element.dart';
 import 'package:teste_gb/elements/loader_element.dart';
 import 'package:teste_gb/model/news.dart';
 import 'package:teste_gb/model/news_response.dart';
-import 'package:teste_gb/util/constants.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:teste_gb/style/theme.dart' as Style;
 
@@ -73,7 +72,7 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
           children: <Widget>[
             Container(
                 foregroundDecoration: BoxDecoration(
-                  color: Colors.green,
+                  color: Style.MyColors.greenColor,
                   borderRadius: BorderRadius.all(Radius.circular(8.0)),
                   shape: BoxShape.rectangle,
                 ),),

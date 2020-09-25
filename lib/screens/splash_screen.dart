@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  final Duration _duration = Duration(seconds: 5);
+  final Duration _duration = Duration(seconds: 7);
   Size _deviceSize;
 
   @override
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Container(
           height: _deviceSize.height,
           width: _deviceSize.width,
-          padding: EdgeInsets.all(22),
+          padding: EdgeInsets.only(right: 22, top: 22),
           color: Style.MyColors.mainColor,
           child: _buildMyInfo()
         ),
@@ -50,38 +50,16 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Column(
         children: [
           Expanded(
-            child: Container(padding: EdgeInsets.only(bottom: 24, top: 24),
+            child: Container(padding: EdgeInsets.only(bottom: 16, top: 24),
               alignment: Alignment.topLeft,
               child: ClipRRect(
-                child: Image.asset(Constants.MY_PICTURE),
+                child: Image.asset(Constants.MY_SPLASH),
               ),
-              height: 400,
-              width: 250,
+              height: _deviceSize.height,
+              width: _deviceSize.width,
             ),
           ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  Constants.MY_FULL_NAME,
-                  style: GoogleFonts.roboto(
-                    color: Colors.black87,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-                Text(
-                  Constants.MY_EMAIL,
-                  style: GoogleFonts.roboto(
-                      color: Colors.black87,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-              ],
-            ),
-          ),
+
         ],
       ),
     );

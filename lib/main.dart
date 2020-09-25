@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teste_gb/bloc/bloc_provider.dart';
 import 'package:teste_gb/bloc/feed_bloc.dart';
-import 'package:teste_gb/screens/auth_screen.dart';
-import 'package:teste_gb/screens/feed_screen.dart';
 import 'package:teste_gb/screens/splash_screen.dart';
 import 'package:teste_gb/util/constants.dart';
 

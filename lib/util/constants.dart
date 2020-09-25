@@ -10,6 +10,7 @@ class Constants {
   static const String MY_PICTURE = "assets/img/img_profile.png";
   static const String MY_FULL_NAME = 'Victor Montero';
   static const String MY_EMAIL = 'victor.hfmontero@gmail.com';
+  static const String MY_SPLASH = "assets/img/splash.png";
 
   static const String NAME_ONE = "Jorge Mata";
   static const String NAME_TWO = "Marina Silva";
@@ -18,7 +19,7 @@ class Constants {
   static const String NAME_FIVE = "Douglas Motta";
   static const String NAME_SIX = "Patrícia Bueno";
   static const String NAME_SEVEN = "Igor Gomes";
-  static const String NAME_EIGHT = "Susana Marchand";
+  static const String NAME_EIGHT = "Susana March";
 
   static const String PLACEHOLDER = "assets/img/placeholder.jpg";
 
