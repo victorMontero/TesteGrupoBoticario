@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:teste_gb/bloc/news_bloc.dart';
 import 'package:teste_gb/model/news_response.dart';
 
-class NewsApiProvider {
+class NewsApiProvider implements NewsDataProvider {
+
+
   final String _mainUrl =
       "https://gb-mobile-app-teste.s3.amazonaws.com/data.json";
   final _dio = Dio();

@@ -56,4 +56,6 @@ class Constants {
   static const String PASS_VALIDATOR = 'A senha deve ter no mínimo 8 caracteres';
   static const String EMAIL_VALIDATOR = 'Formato de e-mail inválido';
 
+  static const String NEWS_LIST_KEY = "news_list";
+
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:teste_gb/screens/auth_screen.dart';
 import 'package:teste_gb/screens/login_screen.dart';
 import 'package:teste_gb/style/theme.dart' as Style;
 import 'package:teste_gb/util/constants.dart';
@@ -37,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Container(
           height: _deviceSize.height,
           width: _deviceSize.width,
-          padding: EdgeInsets.only(right: 22, top: 22),
+          padding: EdgeInsets.only(left: 22, right: 22, top: 22),
           color: Style.MyColors.mainColor,
           child: _buildMyInfo()
         ),
@@ -50,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Column(
         children: [
           Expanded(
-            child: Container(padding: EdgeInsets.only(bottom: 16, top: 24),
+            child: Container(padding: EdgeInsets.only(bottom: 0, top: 0),
               alignment: Alignment.topLeft,
               child: ClipRRect(
                 child: Image.asset(Constants.MY_SPLASH),

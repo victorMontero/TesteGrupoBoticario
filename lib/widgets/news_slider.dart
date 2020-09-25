@@ -8,11 +8,13 @@ import 'package:teste_gb/elements/error_element.dart';
 import 'package:teste_gb/elements/loader_element.dart';
 import 'package:teste_gb/model/news.dart';
 import 'package:teste_gb/model/news_response.dart';
+import 'package:teste_gb/util/constants.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:teste_gb/style/theme.dart' as Style;
 
 
 class NewsSliderWidget extends StatefulWidget {
+
   @override
   _NewsSliderWidgetState createState() => _NewsSliderWidgetState();
 }
@@ -53,6 +55,7 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
     List<News> articles = data.news;
     return Container(
       child: CarouselSlider(
+        key: Key(Constants.NEWS_LIST_KEY),
           options: CarouselOptions(
             enlargeCenterPage: false,
             height: deviceSize.height,
@@ -115,7 +118,7 @@ class _NewsSliderWidgetState extends State<NewsSliderWidget> {
             Positioned(
               bottom: 16.0,left: 16.0,
               child: CircleAvatar(
-                backgroundImage: NetworkImage("https://res-4.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco/x5mjatz3g75hsnhfuck2"),
+                backgroundImage: NetworkImage(Constants.LOGO_GB),
               ),
             ),
             Positioned(
